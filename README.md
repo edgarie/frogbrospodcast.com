@@ -1,4 +1,4 @@
-# frog-bros-podcast
+# The Frog Bros Podcast
 
 ## Project setup
 ```
