@@ -29,12 +29,21 @@
         >Stitcher</a
       >
     </div>
+    <div class="copyright">
+      <em>Copyright &copy; {{ currentYear }} The Frog Bros. Podcast</em>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  computed: {
+    currentYear() {
+      const year = new Date().getFullYear();
+      return year;
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
