@@ -3,7 +3,7 @@
     <img
       class="logo"
       alt="The Frog Bros Podcast logo"
-      src="@/assets/logo.jpg"
+      src="@/assets/logo-new.jpg"
     />
     <div class="podcast-info__listen">
       <a
