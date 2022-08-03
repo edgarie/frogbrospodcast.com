@@ -9,12 +9,13 @@ import {
   faInstagram,
   faYoutube,
   faTwitter,
-  faEtsy
+  faEtsy,
+  faTiktok
 } from "@fortawesome/free-brands-svg-icons";
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-library.add(faFacebook, faInstagram, faYoutube, faTwitter, faEtsy);
+library.add(faFacebook, faInstagram, faYoutube, faTwitter, faEtsy, faTiktok);
 
 Vue.config.productionTip = false;
 
