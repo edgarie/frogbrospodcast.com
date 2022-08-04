@@ -6,7 +6,11 @@
       <em>Copyright &copy; {{ currentYear }} The Frog Bros. Podcast</em>
     </div>
     <div class="social md:flex md:flex-row flex-row flex">
-      <a href="https://twitter.com/bros_frog" class="w-6 mx-2" target="_blank">
+      <a
+        href="https://twitter.com/frogbrospodcast"
+        class="w-6 mx-2"
+        target="_blank"
+      >
         <font-awesome-icon
           class="fill-current cursor-pointer text-gray-500 hover:text-gray-400"
           :icon="['fab', 'twitter']"
