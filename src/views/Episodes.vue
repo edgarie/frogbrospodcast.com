@@ -158,7 +158,7 @@ export default {
   position: relative;
   overflow-y: auto;
   background-color: #54595e;
-  max-height: 417px;
+  max-height: 500px;
   padding: 11px;
   margin-bottom: 70px;
   border-bottom-left-radius: 5px;
