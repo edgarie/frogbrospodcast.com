@@ -9,20 +9,20 @@
         scrolling="no"
         name="iframe"
       ></iframe>
-      <div id="podcast-list-container" class="styles__episodeFeed___3mOKz">
+      <div id="podcast-list-container" class="episode__feed">
         <div
           v-for="(entry, index) in feed"
           :key="index"
-          class="styles__episodeFeedItem___1U6E2"
+          class="episode__feed--item"
         >
           <a
-            class="podcast-list-link styles__episodeImage___tMifW"
+            class="podcast-list-link episode__image"
             :href="entry | updateUrl"
             target="iframe"
           >
             <img :src="entry.itunes.image" />
             <button
-              class="styles__circle___1g-9u styles__white___372tQ styles__playButton___1Ivi4 styles__playButton___1uaGA"
+              class="circle white play__button"
               aria-label=""
               style="height: 31px; min-height: 31px; width: 31px; min-width: 31px; border-radius: 16px;"
             >
@@ -45,10 +45,7 @@
             :href="entry | updateUrl"
             target="iframe"
           >
-            <div
-              class="styles__episodeHeading___29q7v"
-              style="overflow: hidden;"
-            >
+            <div class="episode__heading" style="overflow: hidden;">
               <div>
                 <div>
                   {{ entry.title }}
@@ -56,20 +53,17 @@
               </div>
             </div>
           </a>
-          <div class="styles__episodeDescription___C3oZg ">
-            <div
-              class="styles__expander___1NNVb styles__expander--dark___3Qxhe"
-              style="overflow: hidden;"
-            >
+          <div class="episode__description ">
+            <div class="expander expander--dark" style="overflow: hidden;">
               <div>
                 <div v-html="entry.contentSnippet"></div>
               </div>
             </div>
           </div>
-          <div class="styles__episodeDuration___2I0Qb">
+          <div class="episode__duration">
             {{ entry.itunes.duration | timeFromSeconds }}
           </div>
-          <div class="styles__episodeCreated___1zP5p">
+          <div class="episode__created">
             {{ entry.isoDate | dateFromISO }}
           </div>
         </div>
@@ -87,13 +81,11 @@ export default {
     };
   },
   filters: {
-    // make filter to get time from seconds
     timeFromSeconds(seconds) {
       const date = new Date(null);
       date.setSeconds(seconds);
       return date.toISOString().substr(11, 8);
     },
-    // filter to get date from ISO string mm/dd/yyyy
     dateFromISO(isoDate) {
       return (
         isoDate.substr(5, 2) +
@@ -120,7 +112,6 @@ export default {
     async setup() {
       const rssUrl = "https://anchor.fm/s/56d29e74/podcast/rss";
       let parser = new Parser();
-
       let results = await parser.parseURL(rssUrl);
       this.feed = results.items;
     }
@@ -138,7 +129,7 @@ export default {
     max-height: 700px;
     max-width: 70vw;
     width: 70vw;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     @media (max-width: 767.98px) {
       max-width: 90vw;
       width: 90vw;
@@ -154,49 +145,160 @@ export default {
   zoom: 0.69; /* Fix for mobiles */
 }
 
-.styles__episodeFeed___3mOKz {
-  position: relative;
-  overflow-y: auto;
-  background-color: #54595e;
-  max-height: 500px;
-  padding: 11px;
-  margin-bottom: 70px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  display: none;
-  color: #fff;
+.episode {
+  &__feed {
+    position: relative;
+    overflow-y: auto;
+    background-color: #54595e;
+    max-height: 500px;
+    padding: 11px;
+    margin-bottom: 70px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: none;
+    color: #fff;
+    &--item {
+      min-height: 106px;
+      color: #292f36;
+      background: #fff;
+      border-radius: 4px;
+      padding: 14px 12px;
+      overflow: hidden;
+      position: relative;
+      a {
+        color: inherit;
+        text-decoration: none;
+        text-align: left;
+      }
+      p {
+        color: rgba(41, 47, 54, 0.7);
+        font-size: 13px;
+        line-height: 14px;
+        @media (min-width: 769px) {
+          font-size: 16px;
+          line-height: 18px;
+          color: #7f8287;
+          font-size: 16px;
+          line-height: 18px;
+          color: #7f8287;
+        }
+      }
+      @media (max-width: 768px) {
+        margin-bottom: 10px;
+      }
+      @media (min-width: 769px) {
+        padding: 25px 22px;
+      }
+    }
+  }
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+    float: left;
+    margin: 0 6px 10px 0;
+    position: relative;
+    width: 47px;
+    height: 47px;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+    @media (min-width: 769px) {
+      width: 56px;
+      height: 56px;
+      margin-right: 22px;
+      margin-bottom: 0;
+    }
+  }
+  &__heading {
+    font-weight: 700;
+    font-size: 15px;
+    color: #292f36;
+  }
+  &__description {
+    color: rgba(41, 47, 54, 0.7);
+    font-size: 13px;
+    line-height: 14px;
+    clear: left;
+    padding-right: 2px;
+    text-align: left;
+    @media (min-width: 769px) {
+      font-weight: 700;
+      font-size: 18px;
+      color: #292f36;
+      margin-bottom: 4px;
+      width: 365px;
+      font-size: 16px;
+      line-height: 18px;
+      color: #7f8287;
+      clear: none;
+      width: 465px;
+      margin-left: 78px;
+      font-size: 16px;
+      line-height: 18px;
+      color: #7f8287;
+    }
+  }
+  &__duration {
+    float: right;
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 13px;
+    color: #c9cbcd;
+    @media (min-width: 769px) {
+      margin: 0;
+      float: none;
+      position: absolute;
+      font-size: 13px;
+      line-height: 15px;
+      bottom: 12px;
+      right: 22px;
+      margin: 0;
+      float: none;
+      position: absolute;
+      font-size: 13px;
+      line-height: 15px;
+    }
+  }
+  &__created {
+    float: left;
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 13px;
+    color: #c9cbcd;
+    @media (min-width: 769px) {
+      margin: 0;
+      float: none;
+      position: absolute;
+      font-size: 13px;
+      line-height: 15px;
+      top: 25px;
+      right: 22px;
+      margin: 0;
+      float: none;
+      position: absolute;
+      font-size: 13px;
+      line-height: 15px;
+    }
+  }
+  &__feed {
+    margin-bottom: 73px;
+    display: block;
+    @media (min-width: 769px) {
+      padding: 35px;
+    }
+  }
 }
 
-.styles__episodeFeedItem___1U6E2 {
-  min-height: 106px;
-  color: #292f36;
-  background: #fff;
-  border-radius: 4px;
-  padding: 14px 12px;
-  overflow: hidden;
-  position: relative;
-}
-
-.styles__episodeFeedItem___1U6E2 a {
-  color: inherit;
-  text-decoration: none;
-  text-align: left;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeImage___tMifW {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  overflow: hidden;
-  float: left;
-  margin: 0 6px 10px 0;
-  position: relative;
-  width: 47px;
-  height: 47px;
-}
-
-.styles__circle___1g-9u {
+.circle {
   border: none;
   padding: 0;
   display: flex;
@@ -204,167 +306,23 @@ export default {
   align-items: center;
 }
 
-.styles__white___372tQ {
+.white {
   background: #fff;
 }
 
-.styles__episodeFeedItem___1U6E2 .styles__episodeImage___tMifW img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  vertical-align: middle;
-}
-
-.styles__playButton___1Ivi4 {
+.play__button {
   cursor: pointer;
   text-align: center;
   padding: 0;
-}
-
-.styles__playButton___1uaGA {
   z-index: 0;
-}
-
-.styles__playButton___1Ivi4 svg {
-  overflow: visible;
-}
-
-.styles__episodeFeedItem___1U6E2 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeHeading___29q7v {
-  font-weight: 700;
-  font-size: 15px;
-  color: #292f36;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeDescription___C3oZg,
-.styles__episodeFeedItem___1U6E2 p {
-  color: rgba(41, 47, 54, 0.7);
-  font-size: 13px;
-  line-height: 14px;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeDescription___C3oZg {
-  clear: left;
-  padding-right: 2px;
-  text-align: left;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeDescription___C3oZg,
-.styles__episodeFeedItem___1U6E2 p {
-  color: rgba(41, 47, 54, 0.7);
-  font-size: 13px;
-  line-height: 14px;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeCreated___1zP5p,
-.styles__episodeFeedItem___1U6E2 .styles__episodeDuration___2I0Qb {
-  margin-top: 8px;
-  font-size: 11px;
-  line-height: 13px;
-  color: #c9cbcd;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeDuration___2I0Qb {
-  float: right;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeCreated___1zP5p,
-.styles__episodeFeedItem___1U6E2 .styles__episodeDuration___2I0Qb {
-  margin-top: 8px;
-  font-size: 11px;
-  line-height: 13px;
-  color: #c9cbcd;
-}
-
-.styles__episodeFeedItem___1U6E2 .styles__episodeCreated___1zP5p {
-  float: left;
-}
-
-.styles__episodeFeed___3mOKz {
-  margin-bottom: 73px;
-}
-
-.styles__episodeFeed___3mOKz {
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .styles__episodeFeedItem___1U6E2 {
-    margin-bottom: 10px;
+  svg {
+    overflow: visible;
   }
 }
 
 @media (min-width: 769px) {
-  .styles__episodeFeed___3mOKz {
-    padding: 35px;
-  }
-
-  .styles__episodeFeedItem___1U6E2 {
-    padding: 25px 22px;
-  }
-  .styles__episodeFeed___3mOKz > div {
+  .episode__feed > div {
     margin-bottom: 23px;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeImage___tMifW {
-    width: 56px;
-    height: 56px;
-    margin-right: 22px;
-    margin-bottom: 0;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeHeading___29q7v {
-    font-weight: 700;
-    font-size: 18px;
-    color: #292f36;
-    margin-bottom: 4px;
-    width: 365px;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeDescription___C3oZg,
-  .styles__episodeFeedItem___1U6E2 p {
-    font-size: 16px;
-    line-height: 18px;
-    color: #7f8287;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeDescription___C3oZg {
-    clear: none;
-    width: 465px;
-    margin-left: 78px;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeDescription___C3oZg,
-  .styles__episodeFeedItem___1U6E2 p {
-    font-size: 16px;
-    line-height: 18px;
-    color: #7f8287;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeCreated___1zP5p,
-  .styles__episodeFeedItem___1U6E2 .styles__episodeDuration___2I0Qb {
-    margin: 0;
-    float: none;
-    position: absolute;
-    font-size: 13px;
-    line-height: 15px;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeDuration___2I0Qb {
-    bottom: 12px;
-    right: 22px;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeCreated___1zP5p {
-    top: 25px;
-    right: 22px;
-  }
-  .styles__episodeFeedItem___1U6E2 .styles__episodeCreated___1zP5p,
-  .styles__episodeFeedItem___1U6E2 .styles__episodeDuration___2I0Qb {
-    margin: 0;
-    float: none;
-    position: absolute;
-    font-size: 13px;
-    line-height: 15px;
   }
 }
 </style>
