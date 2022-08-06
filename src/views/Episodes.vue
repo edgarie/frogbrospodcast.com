@@ -4,7 +4,7 @@
       <iframe
         id="anchor-podcast-iframe"
         src="https://anchor.fm/frogbrospodcast/embed"
-        style="width: 100%;height:200px"
+        style="width: 100%;"
         frameborder="0"
         scrolling="no"
         name="iframe"
@@ -129,7 +129,6 @@ export default {
     max-height: 700px;
     max-width: 70vw;
     width: 70vw;
-    // overflow-y: scroll;
     @media (max-width: 767.98px) {
       max-width: 90vw;
       width: 90vw;
@@ -142,7 +141,10 @@ export default {
 }
 
 #podcasts-player-container {
-  zoom: 0.69; /* Fix for mobiles */
+  zoom: 1; /* Fix for mobiles */
+  @media (min-width: 769px) {
+    zoom: 0.69;
+  }
 }
 
 .episode {
@@ -150,13 +152,16 @@ export default {
     position: relative;
     overflow-y: auto;
     background-color: #54595e;
-    max-height: 500px;
+    max-height: 450px;
     padding: 11px;
     margin-bottom: 70px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     display: none;
     color: #fff;
+    @media (min-width: 769px) {
+      max-height: 500px;
+    }
     &--item {
       min-height: 106px;
       color: #292f36;
